@@ -6,7 +6,7 @@
     <title>LZ Core V0.3 Beta Test</title>
     <style>
         /* ==========================================================================
-           1. VARIÁVEIS DE DESIGN E RESET (FUTURISTA & DARK MODE)
+           1. VARIÁVEIS DE DESIGN E RESET
            ========================================================================== */
         :root {
             --bg-base: #0a0a0f;
@@ -33,7 +33,6 @@
             margin: 0;
             padding: 0;
             font-family: var(--font-main);
-            user-select: none;
         }
 
         body, html {
@@ -44,7 +43,7 @@
             overflow: hidden;
         }
 
-        /* Scrollbar Personalizado estilo ROBLOX Studio / VS Code */
+        /* Scrollbar estilo IDE */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -67,22 +66,20 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: radial-gradient(circle at center, #1a1528 0%, var(--bg-base) 100%);
+            width: 100%;
+            height: 100%;
+            background: #0a0a0f;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
         .login-card {
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 40px;
+            padding: 30px;
             width: 320px;
             text-align: center;
             box-shadow: 0 0 30px var(--accent-purple-glow);
@@ -104,13 +101,6 @@
             text-transform: uppercase;
         }
 
-        .pin-input-group {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
         .pin-input {
             width: 100%;
             padding: 12px;
@@ -123,6 +113,7 @@
             border-radius: 6px;
             outline: none;
             font-family: var(--font-mono);
+            margin-bottom: 15px;
         }
 
         .pin-input:focus {
@@ -153,21 +144,19 @@
             color: var(--danger-color);
             font-size: 0.8rem;
             margin-top: 10px;
-            height: 15px;
+            min-height: 18px;
         }
 
         /* ==========================================================================
-           3. LAYOUT PRINCIPAL (HEADER, EXPLORER, WORKSPACE, PROPERTIES)
+           3. LAYOUT PRINCIPAL
            ========================================================================== */
         #app-container {
-            display: flex;
+            display: none;
             flex-direction: column;
             height: 100vh;
             width: 100vw;
-            opacity: 1;
         }
 
-        /* Header / Top Navigation */
         header {
             height: var(--header-height);
             background: var(--bg-surface);
@@ -219,10 +208,9 @@
 
         .header-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
-        /* Main Workspace Layout */
         .main-body {
             display: flex;
             flex: 1;
@@ -231,14 +219,13 @@
             position: relative;
         }
 
-        /* Explorer (Left Sidebar) */
+        /* Explorer */
         .panel-explorer {
             width: var(--sidebar-width);
             background: var(--bg-surface);
             border-right: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            z-index: 5;
         }
 
         .panel-header {
@@ -260,7 +247,6 @@
             padding: 10px 0;
         }
 
-        /* Item da Árvore de Arquivos (Roblox Studio Explorer Inspired) */
         .tree-item {
             display: flex;
             align-items: center;
@@ -270,7 +256,6 @@
             color: var(--text-muted);
             gap: 8px;
             border-left: 2px solid transparent;
-            position: relative;
         }
 
         .tree-item:hover {
@@ -284,24 +269,18 @@
             border-left-color: var(--accent-cyan);
         }
 
-        .tree-item.folder {
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
         .tree-indent {
             display: inline-block;
             width: 12px;
         }
 
-        /* Workspace (Central Area) */
+        /* Workspace */
         .panel-workspace {
             flex: 1;
             background: var(--bg-base);
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            position: relative;
         }
 
         .workspace-breadcrumbs {
@@ -321,7 +300,7 @@
             overflow-y: auto;
         }
 
-        /* Properties (Right Sidebar) */
+        /* Properties */
         .panel-properties {
             width: var(--properties-width);
             background: var(--bg-surface);
@@ -355,13 +334,11 @@
             word-break: break-all;
         }
 
-        /* ==========================================================================
-           4. VISUAIS DE CORES (CORE DASHBOARD & CARDS)
-           ========================================================================== */
+        /* Cards do Core */
         .core-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
         }
 
         .core-card {
@@ -375,7 +352,6 @@
             flex-direction: column;
             gap: 10px;
             position: relative;
-            overflow: hidden;
         }
 
         .core-card::before {
@@ -391,18 +367,17 @@
         .core-card:hover {
             transform: translateY(-2px);
             border-color: var(--accent-purple);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
         .core-card-header {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .core-card-icon {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 6px;
             background: var(--bg-panel);
             object-fit: cover;
@@ -415,7 +390,7 @@
         }
 
         .core-card-title {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: bold;
             color: var(--text-main);
         }
@@ -423,10 +398,8 @@
         .core-card-desc {
             font-size: 0.8rem;
             color: var(--text-muted);
-            line-height: 1.3;
             height: 32px;
             overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .core-card-footer {
@@ -438,9 +411,7 @@
             justify-content: space-between;
         }
 
-        /* ==========================================================================
-           5. EDITOR LZARCHIVEZ & PROTECTED VIEW
-           ========================================================================== */
+        /* Editor */
         .editor-container {
             display: flex;
             flex-direction: column;
@@ -452,7 +423,7 @@
         }
 
         .editor-header {
-            padding: 12px 20px;
+            padding: 12px 15px;
             background: var(--bg-panel);
             border-bottom: 1px solid var(--border-color);
             display: flex;
@@ -467,54 +438,33 @@
             border: none;
             border-bottom: 1px solid transparent;
             color: var(--text-main);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
             outline: none;
             padding: 2px 4px;
-            width: 250px;
+            width: 220px;
         }
 
         .editor-title-input:focus {
             border-bottom-color: var(--accent-cyan);
         }
 
-        .editor-toolbar {
-            display: flex;
-            gap: 8px;
-        }
-
         .editor-body {
             flex: 1;
             display: flex;
             flex-direction: column;
-            padding: 20px;
-            gap: 15px;
+            padding: 15px;
+            gap: 12px;
             overflow-y: auto;
-        }
-
-        .editor-meta-controls {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .editor-select {
-            background: var(--bg-base);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 6px 10px;
-            border-radius: 4px;
-            outline: none;
-            font-size: 0.85rem;
         }
 
         .editor-content {
             flex: 1;
-            min-height: 250px;
+            min-height: 200px;
             background: var(--bg-base);
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            padding: 15px;
+            padding: 12px;
             color: var(--text-main);
             font-family: var(--font-mono);
             font-size: 0.9rem;
@@ -523,20 +473,6 @@
             line-height: 1.5;
         }
 
-        .editor-content:focus {
-            border-color: var(--accent-purple);
-        }
-
-        .editor-image-preview {
-            max-height: 150px;
-            max-width: 100%;
-            object-fit: contain;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-base);
-        }
-
-        /* Visão de Arquivo Fechado/Protegido */
         .protected-view {
             display: flex;
             flex-direction: column;
@@ -548,17 +484,10 @@
             background: var(--bg-surface);
             border-radius: 8px;
             border: 1px solid var(--border-color);
-            padding: 40px;
+            padding: 30px;
         }
 
-        .protected-icon {
-            font-size: 3rem;
-            color: var(--accent-purple);
-        }
-
-        /* ==========================================================================
-           6. COMPONENTES DE UI & BOTÕES
-           ========================================================================== */
+        /* Botões */
         .btn {
             background: var(--bg-panel);
             color: var(--text-main);
@@ -585,7 +514,6 @@
 
         .btn-primary:hover {
             background: #7c3aed;
-            border-color: #7c3aed;
         }
 
         .btn-danger {
@@ -604,7 +532,7 @@
             font-size: 0.75rem;
         }
 
-        /* Modal Generico */
+        /* Modais */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -612,36 +540,31 @@
             width: 100vw;
             height: 100vh;
             background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(4px);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s;
+            display: none;
         }
 
         .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
+            display: flex;
         }
 
         .modal-body {
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            width: 400px;
+            width: 360px;
             max-width: 90vw;
             padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+            gap: 12px;
         }
 
         .modal-title {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             color: var(--text-main);
         }
@@ -649,7 +572,7 @@
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
         }
 
         .form-label {
@@ -667,11 +590,6 @@
             outline: none;
         }
 
-        .form-input:focus {
-            border-color: var(--accent-cyan);
-        }
-
-        /* Navbar Mobile Bottom */
         .mobile-nav {
             display: none;
             height: 50px;
@@ -687,20 +605,841 @@
             border: none;
             color: var(--text-muted);
             font-size: 0.75rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
             cursor: pointer;
         }
 
         .mobile-nav-btn.active {
             color: var(--accent-cyan);
+            font-weight: bold;
         }
 
-        /* ==========================================================================
-           7. ADAPTAÇÃO RESPONSIVA (MOBILE)
-           ========================================================================== */
         @media (max-width: 768px) {
             .panel-explorer, .panel-properties {
-                posi
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+                display: none;
+                z-index: 20;
+            }
+
+            .panel-explorer.mobile-active, 
+            .panel-properties.mobile-active {
+                display: flex;
+            }
+
+            .search-bar-container {
+                width: 140px;
+            }
+
+            .mobile-nav {
+                display: flex;
+            }
+
+            .main-body {
+                height: calc(100vh - var(--header-height) - 50px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TELA DE LOGIN -->
+    <div id="login-screen">
+        <div class="login-card">
+            <h1>LZ CORE</h1>
+            <div class="subtitle">Secure Access</div>
+            <form onsubmit="handleLogin(event)">
+                <input type="password" id="pin-input" class="pin-input" maxlength="4" placeholder="••••" required autofocus autocomplete="off">
+                <button type="submit" class="btn-submit">Acessar Workspace</button>
+            </form>
+            <div id="login-error" class="login-error"></div>
+        </div>
+    </div>
+
+    <!-- APLICAÇÃO PRINCIPAL -->
+    <div id="app-container">
+        
+        <header>
+            <div class="brand">
+                LZ CORE <span class="brand-badge">V0.3 BETA</span>
+            </div>
+
+            <div class="search-bar-container">
+                <input type="text" id="global-search" class="search-bar" placeholder="Pesquisar..." oninput="handleGlobalSearch(this.value)">
+            </div>
+
+            <div class="header-actions">
+                <button class="btn btn-sm" onclick="exportBackup()">Exportar</button>
+                <button class="btn btn-sm" onclick="triggerImport()">Importar</button>
+                <input type="file" id="import-file" style="display: none;" accept=".json" onchange="importBackup(event)">
+            </div>
+        </header>
+
+        <div class="main-body">
+
+            <div class="panel-explorer" id="panel-explorer">
+                <div class="panel-header">
+                    <span>Explorer</span>
+                    <div style="display: flex; gap: 4px;">
+                        <button class="btn btn-sm" onclick="openNewFolderModal()" title="Nova Pasta">+</button>
+                        <button class="btn btn-sm" onclick="openNewFileModal()" title="Novo Arquivo">📄</button>
+                    </div>
+                </div>
+                <div class="tree-view" id="tree-view"></div>
+            </div>
+
+            <div class="panel-workspace" id="panel-workspace">
+                <div class="workspace-breadcrumbs">
+                    <button class="btn btn-sm" onclick="navGoHome()">Inicio</button>
+                    <span id="breadcrumb-path">/ Workspace</span>
+                </div>
+
+                <div class="workspace-content" id="workspace-content"></div>
+            </div>
+
+            <div class="panel-properties" id="panel-properties">
+                <div class="panel-header">
+                    <span>Properties</span>
+                </div>
+                <div class="property-grid" id="properties-content">
+                    <div class="property-row">
+                        <span class="property-label">Nenhum item selecionado</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <nav class="mobile-nav">
+            <button class="mobile-nav-btn active" id="nav-btn-workspace" onclick="switchMobileTab('workspace')">Workspace</button>
+            <button class="mobile-nav-btn" id="nav-btn-explorer" onclick="switchMobileTab('explorer')">Explorer</button>
+            <button class="mobile-nav-btn" id="nav-btn-properties" onclick="switchMobileTab('properties')">Propriedades</button>
+        </nav>
+
+    </div>
+
+    <!-- MODAIS -->
+    <div class="modal-overlay" id="modal-new-core">
+        <div class="modal-body">
+            <div class="modal-title">Criar Novo Core</div>
+            <div class="form-group">
+                <label class="form-label">Nome</label>
+                <input type="text" id="core-name" class="form-input" placeholder="Ex: GeoBR">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Descrição</label>
+                <input type="text" id="core-desc" class="form-input" placeholder="Descrição do projeto">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Ícone (Upload)</label>
+                <input type="file" id="core-icon" class="form-input" accept="image/*">
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 8px;">
+                <button class="btn" onclick="closeModal('modal-new-core')">Cancelar</button>
+                <button class="btn btn-primary" onclick="createNewCore()">Criar Core</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-new-folder">
+        <div class="modal-body">
+            <div class="modal-title">Nova Pasta</div>
+            <div class="form-group">
+                <label class="form-label">Nome da Pasta</label>
+                <input type="text" id="folder-name" class="form-input" placeholder="Ex: Documentos">
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 8px;">
+                <button class="btn" onclick="closeModal('modal-new-folder')">Cancelar</button>
+                <button class="btn btn-primary" onclick="createNewFolder()">Criar Pasta</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-new-file">
+        <div class="modal-body">
+            <div class="modal-title">Novo Arquivo (LZarchivez)</div>
+            <div class="form-group">
+                <label class="form-label">Nome do Arquivo</label>
+                <input type="text" id="file-name" class="form-input" placeholder="Ex: notas">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Tipo</label>
+                <select id="file-type" class="form-input">
+                    <option value="Texto">Texto</option>
+                    <option value="Código">Código</option>
+                    <option value="Ideia">Ideia</option>
+                    <option value="Nota">Nota</option>
+                </select>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 8px;">
+                <button class="btn" onclick="closeModal('modal-new-file')">Cancelar</button>
+                <button class="btn btn-primary" onclick="createNewFile()">Criar Arquivo</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-unlock-file">
+        <div class="modal-body" style="width: 280px; text-align: center;">
+            <div class="modal-title">Arquivo Protegido</div>
+            <input type="password" id="unlock-pin-input" class="pin-input" maxlength="4" placeholder="••••">
+            <div id="unlock-error" class="login-error"></div>
+            <div style="display: flex; justify-content: center; gap: 8px;">
+                <button class="btn" onclick="closeModal('modal-unlock-file')">Cancelar</button>
+                <button class="btn btn-primary" onclick="verifyUnlockPin()">Desbloquear</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-rename">
+        <div class="modal-body">
+            <div class="modal-title">Renomear Item</div>
+            <div class="form-group">
+                <input type="text" id="rename-input" class="form-input">
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 8px;">
+                <button class="btn" onclick="closeModal('modal-rename')">Cancelar</button>
+                <button class="btn btn-primary" onclick="confirmRename()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const AUTH_PIN = "5551";
+        const STORAGE_KEY = "LZ_CORE_V03_DATA";
+
+        let appData = { cores: [], recentFiles: [] };
+        let currentCoreId = null;
+        let currentFolderId = null;
+        let currentFileId = null;
+        let selectedEntity = null;
+        let pendingUnlockFileId = null;
+        let renameTargetEntity = null;
+
+        window.onload = function() {
+            loadFromLocalStorage();
+        };
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const pin = document.getElementById('pin-input').value;
+            const errorDiv = document.getElementById('login-error');
+
+            if (pin === AUTH_PIN) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('app-container').style.display = 'flex';
+                renderWorkspace();
+                renderExplorer();
+            } else {
+                errorDiv.innerText = "PIN incorreto. Use 5551";
+                document.getElementById('pin-input').value = "";
+            }
+        }
+
+        function saveToLocalStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+            } catch (e) {
+                console.warn("LocalStorage indisponível:", e);
+            }
+        }
+
+        function loadFromLocalStorage() {
+            try {
+                const data = localStorage.getItem(STORAGE_KEY);
+                if (data) {
+                    appData = JSON.parse(data);
+                } else {
+                    initDefaultData();
+                }
+            } catch (e) {
+                initDefaultData();
+            }
+        }
+
+        function initDefaultData() {
+            const defaultCoreNames = ["GeoBR", "GD Sync", "GDMC", "Table Studios"];
+            appData.cores = defaultCoreNames.map((name, index) => ({
+                id: 'core_' + Date.now() + '_' + index,
+                name: 'CORE // ' + name,
+                description: 'Workspace para ' + name,
+                iconBase64: '',
+                createdAt: new Date().toLocaleDateString('pt-BR'),
+                folders: [
+                    { id: 'f_arch_' + index, name: 'Meu LZarchivez', parentId: null },
+                    { id: 'f_code_' + index, name: 'Códigos', parentId: null },
+                    { id: 'f_imgs_' + index, name: 'Imagens', parentId: null }
+                ],
+                files: [
+                    {
+                        id: 'file_demo_' + index,
+                        folderId: 'f_arch_' + index,
+                        name: 'Documento Inicial',
+                        type: 'Texto',
+                        content: 'Bem-vindo ao LZ Core V0.3 Beta Test.',
+                        imageBase64: '',
+                        isLocked: false,
+                        isFavorite: false,
+                        createdAt: new Date().toLocaleDateString('pt-BR')
+                    }
+                ]
+            }));
+            saveToLocalStorage();
+        }
+
+        function renderWorkspace() {
+            const container = document.getElementById('workspace-content');
+            const breadcrumbPath = document.getElementById('breadcrumb-path');
+
+            if (!currentCoreId) {
+                breadcrumbPath.innerText = '/ Workspace / Cores';
+                
+                let html = `
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+                        <h2>Cores Disponíveis</h2>
+                        <button class="btn btn-primary" onclick="openModal('modal-new-core')">+ Criar Core</button>
+                    </div>
+                    <div class="core-grid">
+                `;
+
+                appData.cores.forEach(core => {
+                    const iconHtml = core.iconBase64 
+                        ? `<img src="${core.iconBase64}" class="core-card-icon">`
+                        : `<div class="core-card-icon">${core.name.charAt(7) || 'C'}</div>`;
+
+                    html += `
+                        <div class="core-card" onclick="openCore('${core.id}')">
+                            <div class="core-card-header">
+                                ${iconHtml}
+                                <div class="core-card-title">${escapeHtml(core.name)}</div>
+                            </div>
+                            <div class="core-card-desc">${escapeHtml(core.description || 'Sem descrição.')}</div>
+                            <div class="core-card-footer">
+                                <span>Criado: ${core.createdAt}</span>
+                                <span>${core.files.length} arquivos</span>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `</div>`;
+                container.innerHTML = html;
+                updateProperties(null);
+                return;
+            }
+
+            const core = appData.cores.find(c => c.id === currentCoreId);
+            if (!core) {
+                currentCoreId = null;
+                renderWorkspace();
+                return;
+            }
+
+            if (currentFileId) {
+                const file = core.files.find(f => f.id === currentFileId);
+                if (file) {
+                    breadcrumbPath.innerText = `/ ${core.name} / ${file.name}`;
+                    if (file.isLocked) {
+                        renderProtectedFileView(container, file);
+                    } else {
+                        renderEditorView(container, file);
+                    }
+                    updateProperties({ type: 'file', data: file });
+                    return;
+                }
+            }
+
+            const currentFolderName = currentFolderId 
+                ? (core.folders.find(f => f.id === currentFolderId)?.name || 'Pasta')
+                : 'Raiz';
+
+            breadcrumbPath.innerText = `/ ${core.name} / ${currentFolderName}`;
+
+            const activeFolders = core.folders.filter(f => f.parentId === currentFolderId);
+            const activeFiles = core.files.filter(f => f.folderId === currentFolderId);
+
+            let html = `
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+                    <h2>${escapeHtml(core.name)}</h2>
+                    <div style="display:flex; gap:8px;">
+                        <button class="btn" onclick="openNewFolderModal()">+ Nova Pasta</button>
+                        <button class="btn btn-primary" onclick="openNewFileModal()">+ Novo Arquivo</button>
+                    </div>
+                </div>
+            `;
+
+            if (activeFolders.length === 0 && activeFiles.length === 0) {
+                html += `<div style="color:var(--text-muted); font-size:0.9rem;">Esta pasta está vazia.</div>`;
+            } else {
+                html += `<div class="core-grid">`;
+                
+                activeFolders.forEach(folder => {
+                    html += `
+                        <div class="core-card" onclick="openFolder('${folder.id}')">
+                            <div class="core-card-header">
+                                <div class="core-card-icon">📁</div>
+                                <div class="core-card-title">${escapeHtml(folder.name)}</div>
+                            </div>
+                            <div class="core-card-desc">Pasta</div>
+                        </div>
+                    `;
+                });
+
+                activeFiles.forEach(file => {
+                    const lockIcon = file.isLocked ? '🔒 ' : '';
+                    html += `
+                        <div class="core-card" onclick="openFile('${file.id}')">
+                            <div class="core-card-header">
+                                <div class="core-card-icon">📄</div>
+                                <div class="core-card-title">${lockIcon}${escapeHtml(file.name)}</div>
+                            </div>
+                            <div class="core-card-desc">Tipo: ${file.type}</div>
+                        </div>
+                    `;
+                });
+
+                html += `</div>`;
+            }
+
+            container.innerHTML = html;
+            updateProperties({ type: 'core', data: core });
+        }
+
+        function renderEditorView(container, file) {
+            container.innerHTML = `
+                <div class="editor-container">
+                    <div class="editor-header">
+                        <input type="text" id="editor-title" class="editor-title-input" value="${escapeHtml(file.name)}" onchange="autoSaveFile()">
+                        <div style="display:flex; gap:6px;">
+                            <button class="btn btn-sm" onclick="saveFileManual()">Salvar</button>
+                            <button class="btn btn-sm" onclick="lockFile('${file.id}')">🔒 Proteger</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteFile('${file.id}')">Excluir</button>
+                            <button class="btn btn-sm" onclick="closeFile()">Fechar</button>
+                        </div>
+                    </div>
+                    <div class="editor-body">
+                        <textarea id="editor-textarea" class="editor-content" placeholder="Conteúdo do LZarchivez..." oninput="autoSaveFile()">${escapeHtml(file.content || '')}</textarea>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderProtectedFileView(container, file) {
+            container.innerHTML = `
+                <div class="protected-view">
+                    <div style="font-size:3rem; color:var(--accent-purple);">🔒</div>
+                    <h2>Arquivo Protegido</h2>
+                    <p style="color: var(--text-muted); font-size:0.85rem;">Digite o PIN para desbloquear este arquivo.</p>
+                    <button class="btn btn-primary" onclick="promptUnlockFile('${file.id}')">Desbloquear</button>
+                </div>
+            `;
+        }
+
+        function renderExplorer() {
+            const treeView = document.getElementById('tree-view');
+            let html = '';
+
+            appData.cores.forEach(core => {
+                const isCoreActive = (core.id === currentCoreId);
+                html += `
+                    <div class="tree-item ${isCoreActive ? 'active' : ''}" onclick="openCore('${core.id}')">
+                        <span>📁</span>
+                        <span>${escapeHtml(core.name)}</span>
+                    </div>
+                `;
+
+                if (isCoreActive) {
+                    html += renderFolderTree(core, null, 1);
+                }
+            });
+
+            treeView.innerHTML = html;
+        }
+
+        function renderFolderTree(core, parentFolderId, level) {
+            let html = '';
+            const indent = `<span class="tree-indent" style="width:${level * 10}px;"></span>`;
+
+            const folders = core.folders.filter(f => f.parentId === parentFolderId);
+            folders.forEach(folder => {
+                const isFolderActive = (folder.id === currentFolderId);
+                html += `
+                    <div class="tree-item ${isFolderActive ? 'active' : ''}" onclick="event.stopPropagation(); openFolder('${folder.id}')">
+                        ${indent}
+                        <span>📂</span>
+                        <span>${escapeHtml(folder.name)}</span>
+                    </div>
+                `;
+                html += renderFolderTree(core, folder.id, level + 1);
+            });
+
+            const files = core.files.filter(f => f.folderId === parentFolderId);
+            files.forEach(file => {
+                const isFileActive = (file.id === currentFileId);
+                const lockSymbol = file.isLocked ? '🔒' : '📄';
+                html += `
+                    <div class="tree-item ${isFileActive ? 'active' : ''}" onclick="event.stopPropagation(); openFile('${file.id}')">
+                        ${indent}
+                        <span>${lockSymbol}</span>
+                        <span>${escapeHtml(file.name)}</span>
+                    </div>
+                `;
+            });
+
+            return html;
+        }
+
+        function updateProperties(entity) {
+            selectedEntity = entity;
+            const container = document.getElementById('properties-content');
+
+            if (!entity) {
+                container.innerHTML = `<div class="property-row"><span class="property-label">Nenhum item selecionado</span></div>`;
+                return;
+            }
+
+            const { type, data } = entity;
+
+            if (type === 'core') {
+                container.innerHTML = `
+                    <div class="property-row"><span class="property-label">Class</span><span class="property-value">Core Workspace</span></div>
+                    <div class="property-row"><span class="property-label">Name</span><span class="property-value">${escapeHtml(data.name)}</span></div>
+                    <div class="property-row"><span class="property-label">Created At</span><span class="property-value">${data.createdAt}</span></div>
+                    <div style="margin-top:10px; display:flex; gap:5px;">
+                        <button class="btn btn-sm" onclick="openRenameModal('core', '${data.id}', '${data.name}')">Renomear</button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteCore('${data.id}')">Excluir Core</button>
+                    </div>
+                `;
+            } else if (type === 'file') {
+                container.innerHTML = `
+                    <div class="property-row"><span class="property-label">Class</span><span class="property-value">LZarchivez</span></div>
+                    <div class="property-row"><span class="property-label">Name</span><span class="property-value">${escapeHtml(data.name)}</span></div>
+                    <div class="property-row"><span class="property-label">Type</span><span class="property-value">${data.type}</span></div>
+                    <div style="margin-top:10px; display:flex; gap:5px;">
+                        <button class="btn btn-sm" onclick="openRenameModal('file', '${data.id}', '${data.name}')">Renomear</button>
+                    </div>
+                `;
+            }
+        }
+
+        function openCore(coreId) {
+            currentCoreId = coreId;
+            currentFolderId = null;
+            currentFileId = null;
+            renderWorkspace();
+            renderExplorer();
+        }
+
+        function openFolder(folderId) {
+            currentFolderId = folderId;
+            currentFileId = null;
+            renderWorkspace();
+            renderExplorer();
+        }
+
+        function openFile(fileId) {
+            currentFileId = fileId;
+            renderWorkspace();
+            renderExplorer();
+        }
+
+        function navGoHome() {
+            currentCoreId = null;
+            currentFolderId = null;
+            currentFileId = null;
+            renderWorkspace();
+            renderExplorer();
+        }
+
+        function closeFile() {
+            currentFileId = null;
+            renderWorkspace();
+            renderExplorer();
+        }
+
+        function createNewCore() {
+            const name = document.getElementById('core-name').value.trim();
+            const desc = document.getElementById('core-desc').value.trim();
+            if (!name) return;
+
+            const formattedName = name.startsWith("CORE //") ? name : `CORE // ${name}`;
+            const newCore = {
+                id: 'core_' + Date.now(),
+                name: formattedName,
+                description: desc,
+                iconBase64: '',
+                createdAt: new Date().toLocaleDateString('pt-BR'),
+                folders: [
+                    { id: 'f_arch_' + Date.now(), name: 'Meu LZarchivez', parentId: null },
+                    { id: 'f_code_' + Date.now(), name: 'Códigos', parentId: null }
+                ],
+                files: []
+            };
+
+            appData.cores.push(newCore);
+            saveToLocalStorage();
+            closeModal('modal-new-core');
+            openCore(newCore.id);
+        }
+
+        function createNewFolder() {
+            if (!currentCoreId) return;
+            const folderName = document.getElementById('folder-name').value.trim();
+            if (!folderName) return;
+
+            const core = appData.cores.find(c => c.id === currentCoreId);
+            if (core) {
+                core.folders.push({ id: 'f_' + Date.now(), name: folderName, parentId: currentFolderId });
+                saveToLocalStorage();
+                closeModal('modal-new-folder');
+                renderWorkspace();
+                renderExplorer();
+            }
+        }
+
+        function createNewFile() {
+            if (!currentCoreId) return;
+            const fileName = document.getElementById('file-name').value.trim();
+            const fileType = document.getElementById('file-type').value;
+            if (!fileName) return;
+
+            const core = appData.cores.find(c => c.id === currentCoreId);
+            if (core) {
+                const newFile = {
+                    id: 'file_' + Date.now(),
+                    folderId: currentFolderId,
+                    name: fileName,
+                    type: fileType,
+                    content: '',
+                    isLocked: false,
+                    createdAt: new Date().toLocaleDateString('pt-BR')
+                };
+
+                core.files.push(newFile);
+                saveToLocalStorage();
+                closeModal('modal-new-file');
+                openFile(newFile.id);
+            }
+        }
+
+        function autoSaveFile() {
+            if (!currentCoreId || !currentFileId) return;
+            const core = appData.cores.find(c => c.id === currentCoreId);
+            if (!core) return;
+            const file = core.files.find(f => f.id === currentFileId);
+            if (!file) return;
+
+            const titleInput = document.getElementById('editor-title');
+            const contentInput = document.getElementById('editor-textarea');
+
+            if (titleInput) file.name = titleInput.value;
+            if (contentInput) file.content = contentInput.value;
+
+            saveToLocalStorage();
+            renderExplorer();
+        }
+
+        function saveFileManual() {
+            autoSaveFile();
+            alert('Arquivo salvo!');
+        }
+
+        function lockFile(fileId) {
+            const core = appData.cores.find(c => c.id === currentCoreId);
+            if (core) {
+                const file = core.files.find(f => f.id === fileId);
+                if (file) {
+                    file.isLocked = true;
+                    saveToLocalStorage();
+                    renderWorkspace();
+                    renderExplorer();
+                }
+            }
+        }
+
+        function promptUnlockFile(fileId) {
+            pendingUnlockFileId = fileId;
+            openModal('modal-unlock-file');
+        }
+
+        function verifyUnlockPin() {
+            const pin = document.getElementById('unlock-pin-input').value;
+            if (pin === AUTH_PIN) {
+                const core = appData.cores.find(c => c.id === currentCoreId);
+                if (core && pendingUnlockFileId) {
+                    const file = core.files.find(f => f.id === pendingUnlockFileId);
+                    if (file) {
+                        file.isLocked = false;
+                        saveToLocalStorage();
+                        closeModal('modal-unlock-file');
+                        renderWorkspace();
+                        renderExplorer();
+                    }
+                }
+            } else {
+                document.getElementById('unlock-error').innerText = 'PIN Incorreto.';
+            }
+        }
+
+        function deleteFile(fileId) {
+            if (!confirm('Excluir este arquivo?')) return;
+            const core = appData.cores.find(c => c.id === currentCoreId);
+            if (core) {
+                core.files = core.files.filter(f => f.id !== fileId);
+                saveToLocalStorage();
+                closeFile();
+            }
+        }
+
+        function deleteCore(coreId) {
+            if (!confirm('Excluir o Core inteiro?')) return;
+            appData.cores = appData.cores.filter(c => c.id !== coreId);
+            saveToLocalStorage();
+            navGoHome();
+        }
+
+        function openRenameModal(type, id, currentName) {
+            renameTargetEntity = { type, id };
+            document.getElementById('rename-input').value = currentName;
+            openModal('modal-rename');
+        }
+
+        function confirmRename() {
+            const newName = document.getElementById('rename-input').value.trim();
+            if (!newName || !renameTargetEntity) return;
+
+            if (renameTargetEntity.type === 'core') {
+                const core = appData.cores.find(c => c.id === renameTargetEntity.id);
+                if (core) core.name = newName;
+            } else if (renameTargetEntity.type === 'file') {
+                const core = appData.cores.find(c => c.id === currentCoreId);
+                if (core) {
+                    const file = core.files.find(f => f.id === renameTargetEntity.id);
+                    if (file) file.name = newName;
+                }
+            }
+
+            saveToLocalStorage();
+            closeModal('modal-rename');
+            renderWorkspace();
+            renderExplorer();
+        }
+
+        function handleGlobalSearch(query) {
+            const container = document.getElementById('workspace-content');
+            const cleanQuery = query.toLowerCase().trim();
+
+            if (!cleanQuery) {
+                renderWorkspace();
+                return;
+            }
+
+            let results = [];
+            appData.cores.forEach(c => {
+                c.files.forEach(f => {
+                    if (f.name.toLowerCase().includes(cleanQuery) || f.content.toLowerCase().includes(cleanQuery)) {
+                        results.push({ ...f, coreName: c.name, coreId: c.id });
+                    }
+                });
+            });
+
+            let html = `<h2>Busca: "${escapeHtml(query)}"</h2><div class="core-grid" style="margin-top:15px;">`;
+            if (results.length === 0) {
+                html += `<div style="color:var(--text-muted)">Nenhum resultado.</div>`;
+            } else {
+                results.forEach(file => {
+                    html += `
+                        <div class="core-card" onclick="openCoreFileDirect('${file.coreId}', '${file.id}')">
+                            <div class="core-card-header">
+                                <div class="core-card-icon">📄</div>
+                                <div class="core-card-title">${escapeHtml(file.name)}</div>
+                            </div>
+                            <div class="core-card-desc">em ${file.coreName}</div>
+                        </div>
+                    `;
+                });
+            }
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
+        function openCoreFileDirect(coreId, fileId) {
+            currentCoreId = coreId;
+            currentFolderId = null;
+            currentFileId = fileId;
+            renderWorkspace();
+            renderExplorer();
+        }
+
+        function exportBackup() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData));
+            const a = document.createElement('a');
+            a.href = dataStr;
+            a.download = `LZ_CORE_BACKUP.json`;
+            a.click();
+        }
+
+        function triggerImport() {
+            document.getElementById('import-file').click();
+        }
+
+        function importBackup(e) {
+            const reader = new FileReader();
+            reader.onload = function (evt) {
+                try {
+                    appData = JSON.parse(evt.target.result);
+                    saveToLocalStorage();
+                    alert('Backup carregado!');
+                    navGoHome();
+                } catch (err) {
+                    alert('Erro ao carregar JSON.');
+                }
+            };
+            if (e.target.files[0]) reader.readAsText(e.target.files[0]);
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function openNewFolderModal() {
+            if (!currentCoreId) return alert('Selecione um Core primeiro.');
+            openModal('modal-new-folder');
+        }
+
+        function openNewFileModal() {
+            if (!currentCoreId) return alert('Selecione um Core primeiro.');
+            openModal('modal-new-file');
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+
+        function switchMobileTab(tab) {
+            const explorer = document.getElementById('panel-explorer');
+            const properties = document.getElementById('panel-properties');
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => btn.classList.remove('active'));
+
+            explorer.classList.remove('mobile-active');
+            properties.classList.remove('mobile-active');
+
+            if (tab === 'explorer') {
+                explorer.classList.add('mobile-active');
+                document.getElementById('nav-btn-explorer').classList.add('active');
+            } else if (tab === 'properties') {
+                properties.classList.add('mobile-active');
+                document.getElementById('nav-btn-properties').classList.add('active');
+            } else {
+                document.getElementById('nav-btn-workspace').classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
+
